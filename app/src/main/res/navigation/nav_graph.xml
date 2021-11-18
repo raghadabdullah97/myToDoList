@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/taskFragment">
+
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.example.mytodolist.fragments.TaskFragment"
+        android:label="fragment_task"
+        tools:layout="@layout/fragment_task" >
+        <action
+            android:id="@+id/action_taskFragment_to_detailsPageFragment2"
+            app:destination="@id/detailsPageFragment" />
+        <action
+            android:id="@+id/action_taskFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsPageFragment"
+        android:name="com.example.mytodolist.fragments.DetailsPageFragment"
+        android:label="fragment_details_page"
+        tools:layout="@layout/fragment_details_page" >
+        <argument
+            android:name="task"
+            app:argType="com.example.mytodolist.data.Tasks" />
+        <action
+            android:id="@+id/action_detailsPageFragment_to_taskFragment"
+            app:destination="@id/taskFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.mytodolist.fragments.AddFragment"
+        android:label="AddFragment" >
+        <action
+            android:id="@+id/action_addFragment_to_taskFragment"
+            app:destination="@id/taskFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
