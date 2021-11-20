@@ -25,11 +25,16 @@ tasksList.add(_quantit, Tasks(title = title, date = date, details = detail, isCo
  }
 
 
- fun settitleSaving (index: Int  ,title: String, detail: String, completions: Boolean ) {
+ fun settitleSaving (index: Int  ,title: String,  completions: Boolean ) {
   _title.value = title
-  _details.value = detail
   _isCompleted.value = completions
-  tasksList[index] = Tasks(title = title, details = detail, isCompleted = completions)
+  println(index)
+  println(index)
+  println(index)
+  println(index)
+  tasksList.set( index, Tasks(title = title,  isCompleted = completions))
+
+
 
  }
 

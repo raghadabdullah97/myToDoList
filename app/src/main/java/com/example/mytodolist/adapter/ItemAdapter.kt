@@ -61,7 +61,7 @@ class ItemAdapter(
             val action = TaskFragmentDirections.actionTaskFragmentToDetailsPageFragment2(
                 title = item.title,
                 check = item.isCompleted,
-                index =  dataset.indexOf(item)
+                index =  position
             )
             holder.itemView.findNavController().navigate(action)
         }

@@ -27,7 +27,7 @@ class DetailsPageFragment : Fragment() {
 //    private val binding get() = _binding!!
 
     private val sharedViewModel: TaskViewModel by activityViewModels()
-
+var index = 0
 //
 //    override fun onCreateView(
 //        inflater: LayoutInflater, container: ViewGroup?,
@@ -63,16 +63,21 @@ class DetailsPageFragment : Fragment() {
         arguments.let {
             binding?.etTitle?.setText(it?.getString("title"))
             binding?.cbComplete?.isChecked = it!!.getBoolean("check")
-            binding?.myIndex?.text = it.getString("index")
+           // binding?.myIndex?.text = it.getString("index")
+            index = it.getInt("index")
         }
     }
 
     fun sendTheIndex() {
-       val index =  binding?.myIndex?.text.toString().toInt()
+       //var index =  binding?.myIndex?.text.toString().toInt()
+        println("$index")
+//        println(index)
+//        println(index)
+//        println(index)
         val title = binding?.etTitle?.text.toString()
         val detail = binding?.etDetails?.text.toString()
         val compelation = binding?.cbComplete?.isChecked
-       sharedViewModel.settitleSaving(index,title, detail,compelation!!)
+       sharedViewModel.settitleSaving(index,title,compelation!!)
 
         findNavController().navigate(R.id.action_detailsPageFragment_to_taskFragment)
     }
