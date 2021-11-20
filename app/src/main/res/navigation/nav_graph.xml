@@ -33,6 +33,9 @@
         <argument
             android:name="check"
             app:argType="boolean" />
+        <argument
+            android:name="index"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"

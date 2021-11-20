@@ -2,18 +2,24 @@ package com.example.mytodolist.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytodolist.R
 import com.example.mytodolist.data.Tasks
 import com.example.mytodolist.databinding.ItemListBinding
 import com.example.mytodolist.fragments.TaskFragmentDirections
+import com.example.mytodolist.viewmodel.TaskViewModel
 
 
 class ItemAdapter(
@@ -23,7 +29,8 @@ class ItemAdapter(
    // var onItemClick: ((Tasks) -> Unit)? = null
 
 
-     class ItemViewHolder(private val view: View) :
+
+    class ItemViewHolder(private val view: View) :
         RecyclerView.ViewHolder(view) {
             var edit: ImageButton = view.findViewById(R.id.imageEdit)
             var delete: ImageButton = view.findViewById(R.id.imagedelete)
@@ -53,7 +60,8 @@ class ItemAdapter(
         holder.edit.setOnClickListener {
             val action = TaskFragmentDirections.actionTaskFragmentToDetailsPageFragment2(
                 title = item.title,
-                check = item.isCompleted
+                check = item.isCompleted,
+                index =  dataset.indexOf(item)
             )
             holder.itemView.findNavController().navigate(action)
         }

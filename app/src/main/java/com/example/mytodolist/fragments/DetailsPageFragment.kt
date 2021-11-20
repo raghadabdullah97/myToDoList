@@ -13,6 +13,7 @@ import java.util.*
 import android.app.TimePickerDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mytodolist.R
 import com.example.mytodolist.viewmodel.TaskViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
@@ -52,17 +53,28 @@ class DetailsPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments.let {
-            binding?.etTitle?.setText(it?.getString("title"))
-            binding?.cbComplete?.isChecked = it!!.getBoolean("check")
-        }
-
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
-
+            detailFragment = this@DetailsPageFragment
 
         }
+
+        arguments.let {
+            binding?.etTitle?.setText(it?.getString("title"))
+            binding?.cbComplete?.isChecked = it!!.getBoolean("check")
+            binding?.myIndex?.text = it.getString("index")
+        }
+    }
+
+    fun sendTheIndex() {
+       val index =  binding?.myIndex?.text.toString().toInt()
+        val title = binding?.etTitle?.text.toString()
+        val detail = binding?.etDetails?.text.toString()
+        val compelation = binding?.cbComplete?.isChecked
+       sharedViewModel.settitleSaving(index,title, detail,compelation!!)
+
+        findNavController().navigate(R.id.action_detailsPageFragment_to_taskFragment)
     }
 
     fun showDatePicker() {
@@ -108,4 +120,5 @@ class DetailsPageFragment : Fragment() {
         super.onDestroy()
         binding = null
     }
+
     }

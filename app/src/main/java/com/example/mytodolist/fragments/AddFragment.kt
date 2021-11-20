@@ -49,7 +49,7 @@ val cal = ""
             val details =binding.etDetails.text.toString()
             val isCompleted =binding.cbComplete.isChecked
 
-        sharedViewModel.titleSaving(title,date,details,isCompleted)
+        sharedViewModel.newtitleSaving(title,date,details,isCompleted)
 
 
             val action = AddFragmentDirections.actionAddFragmentToTaskFragment()
