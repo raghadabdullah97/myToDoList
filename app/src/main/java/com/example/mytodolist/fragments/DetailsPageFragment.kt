@@ -11,18 +11,21 @@ import androidx.navigation.fragment.navArgs
 import com.example.mytodolist.databinding.FragmentDetailsPageBinding
 import java.util.*
 import android.app.TimePickerDialog
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mytodolist.R
 import com.example.mytodolist.viewmodel.TaskViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
+import java.util.Calendar.getInstance
 
 
 class DetailsPageFragment : Fragment() {
 //    val args: DetailsPageFragment by navArgs()
 //    lateinit var details: String
-    val cal = ""
+var compare: Long = 0
+    var myDate: String = ""
     private var binding: FragmentDetailsPageBinding? = null
 //    private val binding get() = _binding!!
 
@@ -57,8 +60,8 @@ var index = 0
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
             detailFragment = this@DetailsPageFragment
-
         }
+
 
         arguments.let {
             binding?.etTitle?.setText(it?.getString("title"))
@@ -66,6 +69,7 @@ var index = 0
            // binding?.myIndex?.text = it.getString("index")
             index = it.getInt("index")
         }
+        compareDate()
     }
 
     fun sendTheIndex() {
@@ -82,40 +86,45 @@ var index = 0
         findNavController().navigate(R.id.action_detailsPageFragment_to_taskFragment)
     }
 
+
+
     fun showDatePicker() {
-
+        // prepare the calender to be selectable
         val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .setTitleText("Select").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
+        // show it in the secreen
         datePicker.show(parentFragmentManager, "DatePicker")
+        // the click of the lestiner in side the table of calender
         datePicker.addOnPositiveButtonClickListener {
-
-           val  cal = readDate(it, "dd/MM/yyyy")
-            binding?.tvShoCalnder?.setText(cal)
-
+            // saving the value below ( the type is long) we use it  for the comparison
+            compare = it
+            // here convert it to String and show it to the user to be user frindly
+            myDate = convertMillisecondsToReadableDate(it, "EEE, MMM dd ")
+            // we store the date in the view model
+            sharedViewModel.setDate(myDate)
+            // we store the comparison
+            sharedViewModel.compareData.value = compare
+        }
+    }
+       private fun convertMillisecondsToReadableDate(
+            dateMilliseconds: Long,
+            datePattern: String
+        ): String {
+            val format = SimpleDateFormat(datePattern, Locale.getDefault())
+            return format.format(Date(dateMilliseconds))
         }
 
+
+    fun compareDate() {
+        if (sharedViewModel.compareData.value == null) {
+            Toast.makeText(context,"chose Date",Toast.LENGTH_SHORT).show()
+        }
+        else if (sharedViewModel.compareData.value!! < getInstance().timeInMillis  ) {
+            Toast.makeText(context,"the time is finished. ",Toast.LENGTH_SHORT).show()
+        }
+        else Toast.makeText(context,".....",Toast.LENGTH_SHORT).show()
     }
-    private fun readDate (setDate: Long, datePattern: String): String{
-        val format = SimpleDateFormat(datePattern, Locale.getDefault())
-        return format.format(Date(setDate))
-
-    }
-
-
-//    fun edit(){
-//
-//        val title = binding.titletask1.text
-//        val decript = binding.decript1.text
-//        val date = binding.setDate1.text
-//        val done = binding.checkBox2.isChecked
-//        var temp = 0
-//        arguments?.let {
-//            temp=it.getInt("index")
-//        }
-//        sharedViewModel.edit(temp,tasksData(title,decript,date,done))
-//        findNavController().navigate(R.id.action_edit_To_lists)
-//    }
 
 
 

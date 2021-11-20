@@ -11,7 +11,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.mytodolist.viewmodel.TaskViewModel " />
+            type="com.example.mytodolist.viewmodel.TaskViewModel" />
         <variable
             name="detailFragment"
             type="com.example.mytodolist.fragments.DetailsPageFragment" />
@@ -43,7 +43,7 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/due_date"
+            android:text="@{viewModel._date}"
             android:textColor="@color/Blue_Gray_Light2"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -64,6 +64,7 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:gravity="center"
+            android:onClick="@{()-> detailFragment.showDatePicker()}"
             android:text="@string/edit_date"
             app:drawableStartCompat="@drawable/ic_baseline_date_range_24"
             app:iconTint="#455A64"

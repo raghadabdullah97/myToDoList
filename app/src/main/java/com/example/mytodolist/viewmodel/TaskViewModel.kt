@@ -13,6 +13,7 @@ var _quantit = 0
  var _details = MutableLiveData<String>()
  var _isCompleted = MutableLiveData<Boolean>()
  var _importantanty = MutableLiveData<Boolean>()
+ var compareData = MutableLiveData<Long>()
 
  fun newtitleSaving(title: String, date:String, detail: String, completions: Boolean ) {
   _title.value = title
@@ -28,13 +29,15 @@ tasksList.add(_quantit, Tasks(title = title, date = date, details = detail, isCo
  fun settitleSaving (index: Int  ,title: String,  completions: Boolean ) {
   _title.value = title
   _isCompleted.value = completions
-  println(index)
-  println(index)
-  println(index)
-  println(index)
-  tasksList.set( index, Tasks(title = title,  isCompleted = completions))
+
+  tasksList.set( index, Tasks(title = title,  isCompleted = completions,))
 
 
+
+ }
+
+ fun setDate(date: String ){
+  _date.value = date
 
  }
 
