@@ -42,16 +42,33 @@
             android:id="@+id/cbWork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:minWidth="0dp"
-            android:minHeight="0dp"
             android:checked="@={viewModel._isCompleted}"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.743"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.564" />
+
+        <ImageButton
+            android:id="@+id/imagedelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <ImageButton
+            android:id="@+id/imageEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imagedelete"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

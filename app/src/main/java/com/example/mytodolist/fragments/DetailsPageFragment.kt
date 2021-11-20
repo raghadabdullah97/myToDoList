@@ -52,7 +52,10 @@ class DetailsPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        arguments.let {
+            binding?.etTitle?.setText(it?.getString("title"))
+            binding?.cbComplete?.isChecked = it!!.getBoolean("check")
+        }
 
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner

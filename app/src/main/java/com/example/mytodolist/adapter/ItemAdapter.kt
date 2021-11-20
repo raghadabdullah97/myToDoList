@@ -1,27 +1,32 @@
 package com.example.mytodolist.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytodolist.R
 import com.example.mytodolist.data.Tasks
 import com.example.mytodolist.databinding.ItemListBinding
+import com.example.mytodolist.fragments.TaskFragmentDirections
 
 
 class ItemAdapter(
     private  val context: Context?,
-    private val dataset: List<Tasks>) :
+    private val dataset: MutableList<Tasks>) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
    // var onItemClick: ((Tasks) -> Unit)? = null
 
 
      class ItemViewHolder(private val view: View) :
         RecyclerView.ViewHolder(view) {
-
+            var edit: ImageButton = view.findViewById(R.id.imageEdit)
+            var delete: ImageButton = view.findViewById(R.id.imagedelete)
             var title :TextView = view.findViewById(R.id.tvTask1)
             var checkBox: CheckBox = view.findViewById(R.id.cbWork)
 //        fun bind(task: Tasks) {
@@ -39,11 +44,24 @@ class ItemAdapter(
         return ItemViewHolder(adapter)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = dataset[position]
 
         holder.title.text = item.title
         holder.checkBox.isChecked = item.isCompleted
+        holder.edit.setOnClickListener {
+            val action = TaskFragmentDirections.actionTaskFragmentToDetailsPageFragment2(
+                title = item.title,
+                check = item.isCompleted
+            )
+            holder.itemView.findNavController().navigate(action)
+        }
+        holder.delete.setOnClickListener {
+            dataset.removeAt(position)
+            notifyDataSetChanged()
+        }
+
     }
 
     override fun getItemCount(): Int {
