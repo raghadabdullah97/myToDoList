@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout
 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.ItemFragment">
+<data>
+    <variable
+        name="viewModel"
+        type="com.example.mytodolist.viewmodel.TaskViewModel" />
+    <variable
+        name="ItemFragment"
+        type="com.example.mytodolist.fragments.ItemFragment" />
 
-
-    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:padding="16dp"
-        android:layout_marginEnd="16dp"
-
-        >
-
+</data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
-        android:layout_width="383dp"
-        android:layout_height="179dp"
-        android:visibility="visible">
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+       >
 
 
         <TextView
             android:id="@+id/tvTask1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/work"
+            android:text="@={viewModel._title}"
             android:textAllCaps="true"
             android:textColor="@color/Blue_Gray_Light2"
             android:textSize="20sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.185"
+            app:layout_constraintHorizontal_bias="0.098"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.565" />
+            app:layout_constraintVertical_bias="0.219" />
 
         <CheckBox
             android:id="@+id/cbWork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:checked="@={viewModel._isCompleted}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.743"
@@ -52,7 +55,7 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</layout>
 
 
 

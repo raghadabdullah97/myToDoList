@@ -7,80 +7,79 @@ import android.text.format.DateFormat
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mytodolist.R
 import com.example.mytodolist.adapter.ItemAdapter
 import com.example.mytodolist.data.Tasks
-import com.example.mytodolist.data.addTasks
 import com.example.mytodolist.databinding.FragmentAddTaskBinding
 import com.example.mytodolist.databinding.FragmentTaskBinding
+import com.example.mytodolist.viewmodel.TaskViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class AddFragment : Fragment(R.layout.fragment_add_task) {
-    var date = 0L
-    lateinit var binding: FragmentAddTaskBinding
 
+    lateinit var binding: FragmentAddTaskBinding
+val cal = ""
+    private val sharedViewModel: TaskViewModel by activityViewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentAddTaskBinding.bind(view)
 
 
         binding.apply {
-
-            btnCalender.setOnClickListener {
-                setDate()
-            }
-            btnSave.setOnClickListener {
-                val title = etTitle.text.toString()
-                val details = etDetails.text.toString()
-                val isCompleted = cbComplete.isChecked
-                val task = Tasks(title, date, details, isCompleted)
-                addTasks(task)
-                val action = AddFragmentDirections.actionAddFragmentToTaskFragment()
-                findNavController().navigate(action)
-
-            }
+            viewModel = sharedViewModel
+           lifecycleOwner = viewLifecycleOwner
+            addFragment = this@AddFragment
         }
 
-    }
-
-    private fun setDate() {
-        val calendarDate = Calendar.getInstance()
-
-        val year: Int = calendarDate.get(Calendar.YEAR)
-        val month: Int = calendarDate.get(Calendar.MONTH)
-        val day: Int = calendarDate.get(Calendar.DAY_OF_MONTH)
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { view, year, monthOfYear, dayOfMonth ->
-                calendarDate.set(Calendar.YEAR, year)
-                calendarDate.set(Calendar.MONTH, monthOfYear)
-                calendarDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                date = calendarDate.time.time
-                binding.tvDate.text = date.getFormatDate()
-                Log.e(
-                    "setDateStart",
-                    "DatePickerDialog: day $dayOfMonth month: $monthOfYear year: $year"
-                )
-
-            }, year, month, day
-        )
-
-        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-
-        datePickerDialog.show()
-
 
     }
-}
+
+    fun theAddedItems() {
+
+            val title = binding.etTitle.text.toString()
+            val date =binding.tvDate.text.toString()
+            val details =binding.etDetails.text.toString()
+            val isCompleted =binding.cbComplete.isChecked
+
+        sharedViewModel.titleSaving(title,date,details,isCompleted)
 
 
-fun Long.getFormatDate(format: String = "yyyy-MMM-dd") =
-    DateFormat.format(format, this).toString()
+            val action = AddFragmentDirections.actionAddFragmentToTaskFragment()
+            findNavController().navigate(action)
+
+        }
+    }
+
+
+//    private fun setDate() {
+//        val datePicker = MaterialDatePicker.Builder.datePicker()
+//            .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+//            .build()
+//
+//        datePicker.show(parentFragmentManager, "DatePicker")
+//        datePicker.addOnPositiveButtonClickListener {
+//
+//            val cal = readDate(it, "dd/MM/yyyy")
+//            binding.tvDate.setText(cal)
+//
+//        }
 
 
 
+
+//    private fun readDate(setDate: Long, datePattern: String): String {
+//        val format = SimpleDateFormat(datePattern, Locale.getDefault())
+//        return format.format(Date(setDate))
+//
+//
+//    }
 
 

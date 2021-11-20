@@ -22,9 +22,6 @@
         android:name="com.example.mytodolist.fragments.DetailsPageFragment"
         android:label="fragment_details_page"
         tools:layout="@layout/fragment_details_page" >
-        <argument
-            android:name="task"
-            app:argType="com.example.mytodolist.data.Tasks" />
         <action
             android:id="@+id/action_detailsPageFragment_to_taskFragment"
             app:destination="@id/taskFragment"

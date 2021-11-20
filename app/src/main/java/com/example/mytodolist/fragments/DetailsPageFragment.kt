@@ -11,88 +11,98 @@ import androidx.navigation.fragment.navArgs
 import com.example.mytodolist.databinding.FragmentDetailsPageBinding
 import java.util.*
 import android.app.TimePickerDialog
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.mytodolist.data.delete
-import com.example.mytodolist.data.edit
+import com.example.mytodolist.viewmodel.TaskViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
 
 
 class DetailsPageFragment : Fragment() {
-    val args: DetailsPageFragmentArgs by navArgs()
-    lateinit var details: String
-    private var _binding: FragmentDetailsPageBinding? = null
-    private val binding get() = _binding!!
+//    val args: DetailsPageFragment by navArgs()
+//    lateinit var details: String
+    val cal = ""
+    private var binding: FragmentDetailsPageBinding? = null
+//    private val binding get() = _binding!!
+
+    private val sharedViewModel: TaskViewModel by activityViewModels()
+
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        _binding = FragmentDetailsPageBinding.inflate(inflater, container, false)
+//        val view = binding.root
+//        return view
+//    }
+
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDetailsPageBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+
+        val fragmentDetailsPageBinding = FragmentDetailsPageBinding.inflate(inflater, container, false)
+        binding = fragmentDetailsPageBinding
+        return fragmentDetailsPageBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.e("TAG", "DetailsPageFragment: ${args.task}")
+        super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            etDetails.setText(args.task.details)
-            etTitle.setText(args.task.title)
-            cbComplete.isChecked = args.task.isCompleted
-            tvDate.text = args.task.date.getFormatDate()
-            tvShoCalnder.setOnClickListener {
-                setDate()
-            }
 
-            btnSave.setOnClickListener {
-                val action =
-                    DetailsPageFragmentDirections.actionDetailsPageFragmentToTaskFragment()
-                findNavController().navigate(action)
-                args.task.details = etDetails.text.toString()
-                args.task.title = etTitle.text.toString()
-                args.task.isCompleted = cbComplete.isChecked
+        binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = sharedViewModel
 
-                edit(args.task)
-            }
-            imgDelete.setOnClickListener {
-                delete(args.task)
-                val action =
-                    DetailsPageFragmentDirections.actionDetailsPageFragmentToTaskFragment()
-                findNavController().navigate(action)
-            }
+
+        }
+    }
+
+    fun showDatePicker() {
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .build()
+        datePicker.show(parentFragmentManager, "DatePicker")
+        datePicker.addOnPositiveButtonClickListener {
+
+           val  cal = readDate(it, "dd/MM/yyyy")
+            binding?.tvShoCalnder?.setText(cal)
 
         }
 
     }
-
-    private fun setDate() {
-        val calendarDate = Calendar.getInstance()
-
-        val year: Int = calendarDate.get(Calendar.YEAR)
-        val month: Int = calendarDate.get(Calendar.MONTH)
-        val day: Int = calendarDate.get(Calendar.DAY_OF_MONTH)
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { view, year, monthOfYear, dayOfMonth ->
-                calendarDate.set(Calendar.YEAR, year)
-                calendarDate.set(Calendar.MONTH, monthOfYear)
-                calendarDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                args.task.date = calendarDate.time.time
-                binding.tvDate.text = args.task.date.getFormatDate()
-                Log.e(
-                    "setDateStart",
-                    "DatePickerDialog: day $dayOfMonth month: $monthOfYear year: $year"
-                )
-
-            }, year, month, day
-        )
-
-        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-
-        datePickerDialog.show()
-
+    private fun readDate (setDate: Long, datePattern: String): String{
+        val format = SimpleDateFormat(datePattern, Locale.getDefault())
+        return format.format(Date(setDate))
 
     }
 
 
-}
+//    fun edit(){
+//
+//        val title = binding.titletask1.text
+//        val decript = binding.decript1.text
+//        val date = binding.setDate1.text
+//        val done = binding.checkBox2.isChecked
+//        var temp = 0
+//        arguments?.let {
+//            temp=it.getInt("index")
+//        }
+//        sharedViewModel.edit(temp,tasksData(title,decript,date,done))
+//        findNavController().navigate(R.id.action_edit_To_lists)
+//    }
+
+
+
+
+    override fun onDestroy()
+    {
+        super.onDestroy()
+        binding = null
+    }
+    }
