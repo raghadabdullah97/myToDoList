@@ -45,18 +45,5 @@ class ItemFragment : Fragment() {
 
     }
 
-//    fun theAddedItems() {
-//
-////        val title = binding.etTitle.text.toString()
-////        val date =binding.tvDate.text.toString()
-////        val details =binding.etDetails.text.toString()
-////        val isCompleted =binding.cbComplete.isChecked
-//
-//        sharedViewModel.titleSaving(title,date,details,isCompleted)
-//
-//
-//        val action = AddFragmentDirections.actionAddFragmentToTaskFragment()
-//        findNavController().navigate(action)
-//
-//    }
+
 }

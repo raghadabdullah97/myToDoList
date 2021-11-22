@@ -26,7 +26,6 @@ class ItemAdapter(
     private  val context: Context?,
     private val dataset: MutableList<Tasks>) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-   // var onItemClick: ((Tasks) -> Unit)? = null
 
 
 
@@ -36,14 +35,7 @@ class ItemAdapter(
             var delete: ImageButton = view.findViewById(R.id.imagedelete)
             var title :TextView = view.findViewById(R.id.tvTask1)
             var checkBox: CheckBox = view.findViewById(R.id.cbWork)
-//        fun bind(task: Tasks) {
-//            binding.tvTask1.text = task.title
-//            binding.cbWork.isChecked = task.isCompleted
-////
-//            binding.cardid.setOnClickListener {
-//                onItemClick?.invoke(task)
-//                // fragment.findNavController().navigate(R.id.detailsPageFragment)
-//            }
+
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -80,28 +72,3 @@ return dataset.size
 
 
 
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ItemViewHolder {
-//        val inflater = LayoutInflater.from(parent.context)
-//        val adapter = LayoutInflater.from(parent.context).inflate(R.layout.item_list,parent,false)
-////        val binding = ItemListBinding.inflate(inflater, parent, false)
-//
-//        return ItemAdapter.ItemViewHolder(adapter)
-//    }
-//
-//    override fun onBindViewHolder(holder: ItemAdapter.ItemViewHolder, position: Int) {
-//        val item = dataset[position]
-//
-//        holder.bind(item)
-//
-//    }
-
-
-//
-//
-//
-//    override fun getItemCount(): Int =
-//        dataset.size
-//
-//
-//
-//}

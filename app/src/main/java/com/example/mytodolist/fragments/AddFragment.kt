@@ -59,27 +59,10 @@ val cal = ""
     }
 
 
-//    private fun setDate() {
-//        val datePicker = MaterialDatePicker.Builder.datePicker()
-//            .setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-//            .build()
-//
-//        datePicker.show(parentFragmentManager, "DatePicker")
-//        datePicker.addOnPositiveButtonClickListener {
-//
-//            val cal = readDate(it, "dd/MM/yyyy")
-//            binding.tvDate.setText(cal)
-//
-//        }
 
 
 
 
-//    private fun readDate(setDate: Long, datePattern: String): String {
-//        val format = SimpleDateFormat(datePattern, Locale.getDefault())
-//        return format.format(Date(setDate))
-//
-//
-//    }
+
 
 

@@ -7,12 +7,3 @@ package com.example.mytodolist.data
 
 
 
-//    fun loadTasks(): MutableList<Tasks> {
-//        return tasksList
-//    }
-
-//    fun addTasks(tasks: Tasks) {
-//        tasksList.add(tasks)
-//    }
-//
-//    fun edit(tasks: Tasks) {

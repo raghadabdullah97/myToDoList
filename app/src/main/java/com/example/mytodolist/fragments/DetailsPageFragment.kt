@@ -22,24 +22,14 @@ import java.util.Calendar.getInstance
 
 
 class DetailsPageFragment : Fragment() {
-//    val args: DetailsPageFragment by navArgs()
-//    lateinit var details: String
+
 var compare: Long = 0
     var myDate: String = ""
     private var binding: FragmentDetailsPageBinding? = null
-//    private val binding get() = _binding!!
+
 
     private val sharedViewModel: TaskViewModel by activityViewModels()
 var index = 0
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        _binding = FragmentDetailsPageBinding.inflate(inflater, container, false)
-//        val view = binding.root
-//        return view
-//    }
 
 
 
@@ -66,18 +56,16 @@ var index = 0
         arguments.let {
             binding?.etTitle?.setText(it?.getString("title"))
             binding?.cbComplete?.isChecked = it!!.getBoolean("check")
-           // binding?.myIndex?.text = it.getString("index")
+
             index = it.getInt("index")
         }
         compareDate()
     }
 
     fun sendTheIndex() {
-       //var index =  binding?.myIndex?.text.toString().toInt()
+
         println("$index")
-//        println(index)
-//        println(index)
-//        println(index)
+
         val title = binding?.etTitle?.text.toString()
         val detail = binding?.etDetails?.text.toString()
         val compelation = binding?.cbComplete?.isChecked
